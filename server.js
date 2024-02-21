@@ -31,6 +31,7 @@ app.listen(port, function() {
 
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
+app.use('/', require('./routes/api/notes'));
 
 
 
