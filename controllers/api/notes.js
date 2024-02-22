@@ -5,8 +5,8 @@ module.exports = {
   create
 }
 
-function index(req, res) {
-  const notes = Note.find({user: req.user._id})
+async function index(req, res) {
+  const notes = await Note.find({user: req.user._id})
   res.json(notes)
 }
 

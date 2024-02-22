@@ -19,7 +19,8 @@ export default function App() {
       const allNotes = await notesApi.getNotes()
       setNotes(allNotes);
     }
-  }, []);
+    getAllNotes()  
+  }, [])
 
   async function handleCreateNote(newNote) {
     const note = await notesApi.createNote(newNote);
