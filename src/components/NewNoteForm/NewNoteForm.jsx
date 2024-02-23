@@ -9,8 +9,11 @@ export default function NewNoteForm({handleCreateNote}) {
   })
 
   async function handleSubmit(evt) {
-    handleCreateNote(newNote);
     evt.preventDefault();
+    handleCreateNote(newNote);
+    setNewNote({
+      text: ''
+    });
   }
 
   function handleChange(evt) {

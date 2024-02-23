@@ -4,7 +4,6 @@ import { getUser } from '../../utilities/users-service';
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import NewOrderPage from '../NewOrderPage/NewOrderPage';
-import OrderHistoryPage from '../OrderHistoryPage/OrderHistoryPage';
 import NavBar from '../../components/NavBar/NavBar';
 import NotePage from '../NotePage/NotePage';
 import * as notesApi from '../../utilities/notes-api';
@@ -13,6 +12,7 @@ import * as notesApi from '../../utilities/notes-api';
 export default function App() {
   const [user, setUser] = useState(getUser());
   const [notes, setNotes] = useState([]);
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     async function getAllNotes() {
@@ -20,12 +20,17 @@ export default function App() {
       setNotes(allNotes);
     }
     getAllNotes()  
-  }, [])
+  }, [sortOrder])
 
   async function handleCreateNote(newNote) {
     const note = await notesApi.createNote(newNote);
     setNotes([...notes, note]);
     
+  }
+
+  async function handleDeleteNote(noteId) {
+    const allNotes = await notesApi.deleteNote(noteId);
+    setNotes(allNotes);  
   }
 
   return (
@@ -35,8 +40,7 @@ export default function App() {
             <NavBar user={user} setUser={setUser} />
             <Routes>
               {/* Route components in here */}
-              <Route path="/" element={<NotePage notes={notes} handleCreateNote={handleCreateNote} />} />
-              <Route path="/orders" element={<OrderHistoryPage />} />
+              <Route path="/" element={<NotePage notes={notes} handleCreateNote={handleCreateNote} sortOrder={sortOrder} setSortOrder={setSortOrder} handleDeleteNote={handleDeleteNote}/>} />
               <Route path="/orders/new" element={<NewOrderPage />} />
             </Routes>
           </>

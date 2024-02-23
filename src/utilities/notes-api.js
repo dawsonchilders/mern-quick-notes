@@ -8,3 +8,7 @@ export function getNotes() {
 export function createNote(note) {
   return sendRequest(`${BASE_URL}/create`, 'POST', note);
 }
+
+export function deleteNote(id) {
+  return sendRequest(`${BASE_URL}/${id}`, 'DELETE');
+}

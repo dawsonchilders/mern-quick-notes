@@ -12,4 +12,6 @@ router.get('/', ensureLoggedIn, notesCtrl.index);
 //POST ()
 router.post('/create', ensureLoggedIn, notesCtrl.create);
 
+router.delete('/:noteId', ensureLoggedIn, notesCtrl.deleteNote);
+
 module.exports = router;
